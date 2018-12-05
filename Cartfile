@@ -1,1 +1,2 @@
 github "LoopKit/LoopKit" "dev"
+github "socketio/socket.io-client-swift" ~> 13.3.0

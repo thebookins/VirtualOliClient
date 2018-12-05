@@ -12,11 +12,12 @@ import VirtualOliClient
 
 extension VirtualOliClientManager: CGMManagerUI {
     public static func setupViewController() -> (UIViewController & CGMManagerSetupViewController)? {
-        return nil
+        print("about to return setup view controller")
+        return VirtualOliClientSetupViewController()
     }
     
     public func settingsViewController(for glucoseUnit: HKUnit) -> UIViewController {
-        return VirtualOliClientSettingsViewController()
+        return VirtualOliClientSettingsViewController(cgmManager: self, allowsDeletion: true)
     }
     
     public var smallImage: UIImage? {

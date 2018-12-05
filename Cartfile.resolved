@@ -1,1 +1,3 @@
 github "LoopKit/LoopKit" "af4e91bef7adf736b446b39db5aa4b1d3f079a14"
+github "daltoniam/Starscream" "3.0.6"
+github "socketio/socket.io-client-swift" "v13.4.0"

@@ -8,10 +8,38 @@
 
 import HealthKit
 import LoopKit
+import SocketIO
 
 
 public class VirtualOliClientManager : CGMManager {
-    public required init() {
+    public static let managerIdentifier: String = "SimulatedCGM"
+
+    // TODO: encapsulate all this in a class VirtualOliClient
+    let manager = SocketManager(socketURL: URL(string: "https://virtual-oli.herokuapp.com/cgm")!, config: [.log(true), .compress])
+    // end TODO
+
+    public init() {
+        shareService = ShareService(keychainManager: keychain)
+        
+        // TODO: encapsulate all this in a class VirtualOliClient
+        let socket = manager.defaultSocket
+        socket.on(clientEvent: .connect) {data, ack in
+            print("socket connected")
+        }
+        
+        socket.on("message") {data, ack in
+            print(data[0])
+//            guard let cur = data[0] as? Double else { return }
+//
+//            socket.emitWithAck("canUpdate", cur).timingOut(after: 0) {data in
+//                socket.emit("update", ["amount": cur + 2.50])
+//            }
+//
+//            ack.with("Got your currentAmount", "dude")
+        }
+        
+        socket.connect()
+        // end TODO
     }
     
     required convenience public init?(rawState: CGMManager.RawStateValue) {
@@ -22,7 +50,13 @@ public class VirtualOliClientManager : CGMManager {
         return [:]
     }
     
-    public static let managerIdentifier: String = "SimulatedCGM"
+    private let keychain = KeychainManager()
+    
+    public var shareService: ShareService {
+        didSet {
+            try! keychain.setDexcomShareUsername(shareService.username, password: shareService.password, url: shareService.url)
+        }
+    }
     
     public static let localizedTitle = NSLocalizedString("Simulated CGM", comment: "CGM display title")
     

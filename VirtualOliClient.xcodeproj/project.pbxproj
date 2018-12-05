@@ -16,6 +16,16 @@
 		DA3C0B4321B6889A0077589B /* VirtualOliClientManager+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3C0B4221B6889A0077589B /* VirtualOliClientManager+UI.swift */; };
 		DA3C0B4521B689390077589B /* VirtualOliClientSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3C0B4421B689390077589B /* VirtualOliClientSettingsViewController.swift */; };
 		DA3C0B4721B689FA0077589B /* LoopKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA3C0B4621B689FA0077589B /* LoopKitUI.framework */; };
+		DA53281B21B7B4C9002916CE /* VirtualOliClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA3C0B1321B67FCC0077589B /* VirtualOliClient.framework */; };
+		DA53281E21B7D34B002916CE /* LocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA53281D21B7D34B002916CE /* LocalizedString.swift */; };
+		DA53282021B7D482002916CE /* IdentifiableClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA53281F21B7D482002916CE /* IdentifiableClass.swift */; };
+		DA53282121B7D567002916CE /* LocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA53281D21B7D34B002916CE /* LocalizedString.swift */; };
+		DA53282321B7D594002916CE /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA53282221B7D594002916CE /* UIColor.swift */; };
+		DA53282521B7D970002916CE /* VirtualOliClientSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA53282421B7D970002916CE /* VirtualOliClientSetupViewController.swift */; };
+		DA53282721B7DB73002916CE /* ShareService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA53282621B7DB73002916CE /* ShareService.swift */; };
+		DA53282921B7DD8B002916CE /* ShareService+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA53282821B7DD8B002916CE /* ShareService+UI.swift */; };
+		DA53282B21B7E7D8002916CE /* SocketIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA53282A21B7E7D8002916CE /* SocketIO.framework */; };
+		DA53282D21B7E7EB002916CE /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA53282C21B7E7EB002916CE /* Starscream.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +53,14 @@
 		DA3C0B4221B6889A0077589B /* VirtualOliClientManager+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VirtualOliClientManager+UI.swift"; sourceTree = "<group>"; };
 		DA3C0B4421B689390077589B /* VirtualOliClientSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualOliClientSettingsViewController.swift; sourceTree = "<group>"; };
 		DA3C0B4621B689FA0077589B /* LoopKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LoopKitUI.framework; path = Carthage/Build/iOS/LoopKitUI.framework; sourceTree = "<group>"; };
+		DA53281D21B7D34B002916CE /* LocalizedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedString.swift; sourceTree = "<group>"; };
+		DA53281F21B7D482002916CE /* IdentifiableClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableClass.swift; sourceTree = "<group>"; };
+		DA53282221B7D594002916CE /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		DA53282421B7D970002916CE /* VirtualOliClientSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualOliClientSetupViewController.swift; sourceTree = "<group>"; };
+		DA53282621B7DB73002916CE /* ShareService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareService.swift; sourceTree = "<group>"; };
+		DA53282821B7DD8B002916CE /* ShareService+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShareService+UI.swift"; sourceTree = "<group>"; };
+		DA53282A21B7E7D8002916CE /* SocketIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SocketIO.framework; path = ../../Build/iOS/SocketIO.framework; sourceTree = "<group>"; };
+		DA53282C21B7E7EB002916CE /* Starscream.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Starscream.framework; path = ../../Build/iOS/Starscream.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +84,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA53282D21B7E7EB002916CE /* Starscream.framework in Frameworks */,
+				DA53282B21B7E7D8002916CE /* SocketIO.framework in Frameworks */,
+				DA53281B21B7B4C9002916CE /* VirtualOliClient.framework in Frameworks */,
 				DA3C0B4721B689FA0077589B /* LoopKitUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -76,6 +97,7 @@
 		DA3C0B0921B67FCC0077589B = {
 			isa = PBXGroup;
 			children = (
+				DA53281C21B7D334002916CE /* Common */,
 				DA3C0B1521B67FCC0077589B /* VirtualOliClient */,
 				DA3C0B2021B67FCC0077589B /* VirtualOliClientTests */,
 				DA3C0B3B21B6886B0077589B /* VirtualOliClientUI */,
@@ -100,6 +122,7 @@
 				DA3C0B1621B67FCC0077589B /* VirtualOliClient.h */,
 				DA3C0B1721B67FCC0077589B /* Info.plist */,
 				DA3C0B2F21B6841A0077589B /* VirtualOliClientManager.swift */,
+				DA53282621B7DB73002916CE /* ShareService.swift */,
 			);
 			path = VirtualOliClient;
 			sourceTree = "<group>";
@@ -116,6 +139,8 @@
 		DA3C0B3121B686300077589B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DA53282C21B7E7EB002916CE /* Starscream.framework */,
+				DA53282A21B7E7D8002916CE /* SocketIO.framework */,
 				DA3C0B4621B689FA0077589B /* LoopKitUI.framework */,
 				DA3C0B3221B686300077589B /* LoopKit.framework */,
 			);
@@ -125,12 +150,24 @@
 		DA3C0B3B21B6886B0077589B /* VirtualOliClientUI */ = {
 			isa = PBXGroup;
 			children = (
+				DA53281F21B7D482002916CE /* IdentifiableClass.swift */,
 				DA3C0B3C21B6886B0077589B /* VirtualOliClientUI.h */,
 				DA3C0B3D21B6886B0077589B /* Info.plist */,
 				DA3C0B4221B6889A0077589B /* VirtualOliClientManager+UI.swift */,
 				DA3C0B4421B689390077589B /* VirtualOliClientSettingsViewController.swift */,
+				DA53282221B7D594002916CE /* UIColor.swift */,
+				DA53282821B7DD8B002916CE /* ShareService+UI.swift */,
+				DA53282421B7D970002916CE /* VirtualOliClientSetupViewController.swift */,
 			);
 			path = VirtualOliClientUI;
+			sourceTree = "<group>";
+		};
+		DA53281C21B7D334002916CE /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				DA53281D21B7D34B002916CE /* LocalizedString.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -280,7 +317,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA53281E21B7D34B002916CE /* LocalizedString.swift in Sources */,
 				DA3C0B3021B6841A0077589B /* VirtualOliClientManager.swift in Sources */,
+				DA53282721B7DB73002916CE /* ShareService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,8 +335,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA53282121B7D567002916CE /* LocalizedString.swift in Sources */,
 				DA3C0B4321B6889A0077589B /* VirtualOliClientManager+UI.swift in Sources */,
 				DA3C0B4521B689390077589B /* VirtualOliClientSettingsViewController.swift in Sources */,
+				DA53282021B7D482002916CE /* IdentifiableClass.swift in Sources */,
+				DA53282921B7DD8B002916CE /* ShareService+UI.swift in Sources */,
+				DA53282521B7D970002916CE /* VirtualOliClientSetupViewController.swift in Sources */,
+				DA53282321B7D594002916CE /* UIColor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
