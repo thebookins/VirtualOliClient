@@ -15,21 +15,49 @@ public class VirtualOliClientManager : CGMManager {
     public static let managerIdentifier: String = "SimulatedCGM"
 
     // TODO: encapsulate all this in a class VirtualOliClient
-    let manager = SocketManager(socketURL: URL(string: "https://virtual-oli.herokuapp.com/cgm")!, config: [.log(true), .compress])
+    let manager = SocketManager(socketURL: URL(string: "https://virtual-oli.herokuapp.com")!, config: [.log(true), .compress])
     // end TODO
 
     public init() {
         shareService = ShareService(keychainManager: keychain)
         
         // TODO: encapsulate all this in a class VirtualOliClient
-        let socket = manager.defaultSocket
+//        let socket = manager.defaultSocket
+        let socket = manager.socket(forNamespace: "/cgm")
         socket.on(clientEvent: .connect) {data, ack in
             print("socket connected")
         }
         
         socket.on("message") {data, ack in
+            print(type(of: data[0]))
             print(data[0])
-//            guard let cur = data[0] as? Double else { return }
+            guard let response = data[0] as? NSDictionary, let glucoseValue = response["glucose"] as? Double, let dateString = response["readDate"] as? String else {
+                return
+            }
+            
+            guard let readDate = self.dateFormatter.date(from: dateString) else {
+                return
+            }
+            
+            let glucose = VirtualOliGlucose(glucose: glucoseValue, readDate: readDate)
+
+            self.latestReading = glucose
+                        
+            let quantity = glucose.quantity
+            
+            print("%{public}@: New glucose: %@", #function, String(describing: quantity))
+            
+            self.updateDelegate(with: .newData([
+                NewGlucoseSample(
+                    date: glucose.readDate,
+                    quantity: quantity,
+                    isDisplayOnly: false,
+                    syncIdentifier: "\(Int(glucose.startDate.timeIntervalSince1970))",
+                    device: self.device
+                )
+                ]))
+
+            
 //
 //            socket.emitWithAck("canUpdate", cur).timingOut(after: 0) {data in
 //                socket.emit("update", ["amount": cur + 2.50])
@@ -40,6 +68,9 @@ public class VirtualOliClientManager : CGMManager {
         
         socket.connect()
         // end TODO
+        
+        self.dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        self.dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
     }
     
     required convenience public init?(rawState: CGMManager.RawStateValue) {
@@ -51,6 +82,8 @@ public class VirtualOliClientManager : CGMManager {
     }
     
     private let keychain = KeychainManager()
+    
+    private let dateFormatter = DateFormatter()
     
     public var shareService: ShareService {
         didSet {
@@ -83,22 +116,22 @@ public class VirtualOliClientManager : CGMManager {
         return nil
     }
     
-//    private(set) public var latestReading: Glucose? {
-//        get {
-//            return lockedLatestReading.value
-//        }
-//        set {
-//            lockedLatestReading.value = newValue
-//        }
-//    }
-//    private let lockedLatestReading: Locked<Glucose?> = Locked(nil)
+    private(set) public var latestReading: VirtualOliGlucose? {
+        get {
+            return lockedLatestReading.value
+        }
+        set {
+            lockedLatestReading.value = newValue
+        }
+    }
+    private let lockedLatestReading: Locked<VirtualOliGlucose?> = Locked(nil)
     
     public var shouldSyncToRemoteService: Bool {
         return true
     }
     
     public var sensorState: SensorDisplayable? {
-        return nil
+        return latestReading
     }
     
     public var device: HKDevice? {
@@ -117,12 +150,17 @@ public class VirtualOliClientManager : CGMManager {
     public var debugDescription: String {
         return [
             "## \(String(describing: type(of: self)))",
-//            "latestReading: \(String(describing: latestReading))",
+            "latestReading: \(String(describing: latestReading))",
             "providesBLEHeartbeat: \(providesBLEHeartbeat)",
             ""
             ].joined(separator: "\n")
     }
     
+    private func updateDelegate(with result: CGMResult) {
+        if let manager = self as? CGMManager {
+            delegate?.cgmManager(manager, didUpdateWith: result)
+        }
+    }
     
     public func fetchNewDataIfNeeded(_ completion: @escaping (LoopKit.CGMResult) -> Void) {
         completion(.noData)

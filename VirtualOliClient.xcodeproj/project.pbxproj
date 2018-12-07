@@ -16,6 +16,10 @@
 		DA3C0B4321B6889A0077589B /* VirtualOliClientManager+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3C0B4221B6889A0077589B /* VirtualOliClientManager+UI.swift */; };
 		DA3C0B4521B689390077589B /* VirtualOliClientSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3C0B4421B689390077589B /* VirtualOliClientSettingsViewController.swift */; };
 		DA3C0B4721B689FA0077589B /* LoopKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA3C0B4621B689FA0077589B /* LoopKitUI.framework */; };
+		DA3CED1421B8A288000081DB /* VirtualOliClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3CED1321B8A288000081DB /* VirtualOliClient.swift */; };
+		DA3CED1621BA6A97000081DB /* VirtualOliGlucose+GlucoseKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3CED1521BA6A97000081DB /* VirtualOliGlucose+GlucoseKit.swift */; };
+		DA3CED1821BA6DC2000081DB /* HKUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3CED1721BA6DC2000081DB /* HKUnit.swift */; };
+		DA3CED1A21BA7004000081DB /* Locked.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3CED1921BA7004000081DB /* Locked.swift */; };
 		DA53281B21B7B4C9002916CE /* VirtualOliClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA3C0B1321B67FCC0077589B /* VirtualOliClient.framework */; };
 		DA53281E21B7D34B002916CE /* LocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA53281D21B7D34B002916CE /* LocalizedString.swift */; };
 		DA53282021B7D482002916CE /* IdentifiableClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA53281F21B7D482002916CE /* IdentifiableClass.swift */; };
@@ -53,6 +57,10 @@
 		DA3C0B4221B6889A0077589B /* VirtualOliClientManager+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VirtualOliClientManager+UI.swift"; sourceTree = "<group>"; };
 		DA3C0B4421B689390077589B /* VirtualOliClientSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualOliClientSettingsViewController.swift; sourceTree = "<group>"; };
 		DA3C0B4621B689FA0077589B /* LoopKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LoopKitUI.framework; path = Carthage/Build/iOS/LoopKitUI.framework; sourceTree = "<group>"; };
+		DA3CED1321B8A288000081DB /* VirtualOliClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualOliClient.swift; sourceTree = "<group>"; };
+		DA3CED1521BA6A97000081DB /* VirtualOliGlucose+GlucoseKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VirtualOliGlucose+GlucoseKit.swift"; sourceTree = "<group>"; };
+		DA3CED1721BA6DC2000081DB /* HKUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HKUnit.swift; sourceTree = "<group>"; };
+		DA3CED1921BA7004000081DB /* Locked.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Locked.swift; sourceTree = "<group>"; };
 		DA53281D21B7D34B002916CE /* LocalizedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedString.swift; sourceTree = "<group>"; };
 		DA53281F21B7D482002916CE /* IdentifiableClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableClass.swift; sourceTree = "<group>"; };
 		DA53282221B7D594002916CE /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
@@ -120,9 +128,12 @@
 			isa = PBXGroup;
 			children = (
 				DA3C0B1621B67FCC0077589B /* VirtualOliClient.h */,
+				DA3CED1321B8A288000081DB /* VirtualOliClient.swift */,
 				DA3C0B1721B67FCC0077589B /* Info.plist */,
 				DA3C0B2F21B6841A0077589B /* VirtualOliClientManager.swift */,
 				DA53282621B7DB73002916CE /* ShareService.swift */,
+				DA3CED1521BA6A97000081DB /* VirtualOliGlucose+GlucoseKit.swift */,
+				DA3CED1721BA6DC2000081DB /* HKUnit.swift */,
 			);
 			path = VirtualOliClient;
 			sourceTree = "<group>";
@@ -166,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				DA53281D21B7D34B002916CE /* LocalizedString.swift */,
+				DA3CED1921BA7004000081DB /* Locked.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -319,7 +331,11 @@
 			files = (
 				DA53281E21B7D34B002916CE /* LocalizedString.swift in Sources */,
 				DA3C0B3021B6841A0077589B /* VirtualOliClientManager.swift in Sources */,
+				DA3CED1A21BA7004000081DB /* Locked.swift in Sources */,
+				DA3CED1821BA6DC2000081DB /* HKUnit.swift in Sources */,
 				DA53282721B7DB73002916CE /* ShareService.swift in Sources */,
+				DA3CED1421B8A288000081DB /* VirtualOliClient.swift in Sources */,
+				DA3CED1621BA6A97000081DB /* VirtualOliGlucose+GlucoseKit.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
