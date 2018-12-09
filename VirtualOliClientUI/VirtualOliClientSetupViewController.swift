@@ -15,7 +15,7 @@ import VirtualOliClient
 class VirtualOliClientSetupViewController: UINavigationController, CGMManagerSetupViewController {
     var setupDelegate: CGMManagerSetupViewControllerDelegate?
     
-    let cgmManager = VirtualOliClientManager()
+    let cgmManager = VirtualOliClientCGMManager()
     
     init() {
         let authVC = AuthenticationViewController(authentication: cgmManager.shareService)

@@ -13,11 +13,11 @@ import VirtualOliClient
 
 class VirtualOliClientSettingsViewController: UITableViewController {
     
-    public let cgmManager: VirtualOliClientManager
+    public let cgmManager: VirtualOliClientCGMManager
     
     public let allowsDeletion: Bool
     
-    public init(cgmManager: VirtualOliClientManager, allowsDeletion: Bool) {
+    public init(cgmManager: VirtualOliClientCGMManager, allowsDeletion: Bool) {
         self.cgmManager = cgmManager
         self.allowsDeletion = allowsDeletion
         

@@ -10,7 +10,7 @@ import LoopKitUI
 import HealthKit
 import VirtualOliClient
 
-extension VirtualOliClientManager: CGMManagerUI {
+extension VirtualOliClientCGMManager: CGMManagerUI {
     public static func setupViewController() -> (UIViewController & CGMManagerSetupViewController)? {
         print("about to return setup view controller")
         return VirtualOliClientSetupViewController()

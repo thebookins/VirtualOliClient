@@ -9,13 +9,15 @@
 import HealthKit
 import LoopKit
 import SocketIO
+import Foundation
+import UIKit
 
 
-public class VirtualOliClientManager : CGMManager {
+public class VirtualOliClientCGMManager : CGMManager {
     public static let managerIdentifier: String = "SimulatedCGM"
 
     // TODO: encapsulate all this in a class VirtualOliClient
-    let manager = SocketManager(socketURL: URL(string: "https://virtual-oli.herokuapp.com")!, config: [.log(true), .compress])
+//    let manager = SocketManager(socketURL: URL(string: "https://virtual-oli.herokuapp.com")!, config: [.log(false), .compress])
     // end TODO
 
     public init() {
@@ -23,54 +25,54 @@ public class VirtualOliClientManager : CGMManager {
         
         // TODO: encapsulate all this in a class VirtualOliClient
 //        let socket = manager.defaultSocket
-        let socket = manager.socket(forNamespace: "/cgm")
-        socket.on(clientEvent: .connect) {data, ack in
-            print("socket connected")
-        }
-        
-        socket.on("message") {data, ack in
-            print(type(of: data[0]))
-            print(data[0])
-            guard let response = data[0] as? NSDictionary, let glucoseValue = response["glucose"] as? Double, let dateString = response["readDate"] as? String else {
-                return
-            }
-            
-            guard let readDate = self.dateFormatter.date(from: dateString) else {
-                return
-            }
-            
-            let glucose = VirtualOliGlucose(glucose: glucoseValue, readDate: readDate)
-
-            self.latestReading = glucose
-                        
-            let quantity = glucose.quantity
-            
-            print("%{public}@: New glucose: %@", #function, String(describing: quantity))
-            
-            self.updateDelegate(with: .newData([
-                NewGlucoseSample(
-                    date: glucose.readDate,
-                    quantity: quantity,
-                    isDisplayOnly: false,
-                    syncIdentifier: "\(Int(glucose.startDate.timeIntervalSince1970))",
-                    device: self.device
-                )
-                ]))
-
-            
+//        let socket = manager.socket(forNamespace: "/cgm")
+//        socket.on(clientEvent: .connect) {data, ack in
+//            print("socket connected")
+//        }
 //
-//            socket.emitWithAck("canUpdate", cur).timingOut(after: 0) {data in
-//                socket.emit("update", ["amount": cur + 2.50])
+//        socket.on("message") {data, ack in
+//            print(type(of: data[0]))
+//            print(data[0])
+//            guard let response = data[0] as? NSDictionary, let glucoseValue = response["glucose"] as? Double, let dateString = response["readDate"] as? String else {
+//                return
 //            }
 //
-//            ack.with("Got your currentAmount", "dude")
-        }
+//            guard let readDate = self.dateFormatter.date(from: dateString) else {
+//                return
+//            }
+//
+////            let glucose = VirtualOliGlucose(glucose: glucoseValue, readDate: readDate)
+////
+////            self.latestReading = glucose
+////
+////            let quantity = glucose.quantity
+////
+////            print("%{public}@: New glucose: %@", #function, String(describing: quantity))
+////
+////            self.updateDelegate(with: .newData([
+////                NewGlucoseSample(
+////                    date: glucose.readDate,
+////                    quantity: quantity,
+////                    isDisplayOnly: false,
+////                    syncIdentifier: "\(Int(glucose.startDate.timeIntervalSince1970))",
+////                    device: self.device
+////                )
+////                ]))
+//
+//
+////
+////            socket.emitWithAck("canUpdate", cur).timingOut(after: 0) {data in
+////                socket.emit("update", ["amount": cur + 2.50])
+////            }
+////
+////            ack.with("Got your currentAmount", "dude")
+//        }
+//
+//        socket.connect()
+//        // end TODO
         
-        socket.connect()
-        // end TODO
-        
-        self.dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        self.dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+//        self.dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+//        self.dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
     }
     
     required convenience public init?(rawState: CGMManager.RawStateValue) {
@@ -83,7 +85,7 @@ public class VirtualOliClientManager : CGMManager {
     
     private let keychain = KeychainManager()
     
-    private let dateFormatter = DateFormatter()
+//    private let dateFormatter = DateFormatter()
     
     public var shareService: ShareService {
         didSet {
@@ -163,7 +165,28 @@ public class VirtualOliClientManager : CGMManager {
     }
     
     public func fetchNewDataIfNeeded(_ completion: @escaping (LoopKit.CGMResult) -> Void) {
-        completion(.noData)
-        return
+        print("fetching new data")
+        GlucoseFetcher.fetchGlucose { [weak self] glucose in
+            guard let self = self else {
+                completion(.noData)
+                return
+            }
+
+            self.latestReading = glucose
+
+            let quantity = glucose.quantity
+
+            print("%{public}@: New glucose: %@", #function, String(describing: quantity))
+
+            completion(.newData([
+                NewGlucoseSample(
+                    date: glucose.readDate,
+                    quantity: quantity,
+                    isDisplayOnly: false,
+                    syncIdentifier: "\(Int(glucose.startDate.timeIntervalSince1970))",
+                    device: self.device
+                )
+            ]))
+        }
     }
 }

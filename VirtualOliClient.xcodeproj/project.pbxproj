@@ -10,7 +10,7 @@
 		DA3C0B1D21B67FCC0077589B /* VirtualOliClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA3C0B1321B67FCC0077589B /* VirtualOliClient.framework */; };
 		DA3C0B2221B67FCC0077589B /* VirtualOliClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3C0B2121B67FCC0077589B /* VirtualOliClientTests.swift */; };
 		DA3C0B2421B67FCC0077589B /* VirtualOliClient.h in Headers */ = {isa = PBXBuildFile; fileRef = DA3C0B1621B67FCC0077589B /* VirtualOliClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DA3C0B3021B6841A0077589B /* VirtualOliClientManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3C0B2F21B6841A0077589B /* VirtualOliClientManager.swift */; };
+		DA3C0B3021B6841A0077589B /* VirtualOliClientCGMManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3C0B2F21B6841A0077589B /* VirtualOliClientCGMManager.swift */; };
 		DA3C0B3321B686300077589B /* LoopKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA3C0B3221B686300077589B /* LoopKit.framework */; };
 		DA3C0B3E21B6886B0077589B /* VirtualOliClientUI.h in Headers */ = {isa = PBXBuildFile; fileRef = DA3C0B3C21B6886B0077589B /* VirtualOliClientUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DA3C0B4321B6889A0077589B /* VirtualOliClientManager+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3C0B4221B6889A0077589B /* VirtualOliClientManager+UI.swift */; };
@@ -20,6 +20,8 @@
 		DA3CED1621BA6A97000081DB /* VirtualOliGlucose+GlucoseKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3CED1521BA6A97000081DB /* VirtualOliGlucose+GlucoseKit.swift */; };
 		DA3CED1821BA6DC2000081DB /* HKUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3CED1721BA6DC2000081DB /* HKUnit.swift */; };
 		DA3CED1A21BA7004000081DB /* Locked.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3CED1921BA7004000081DB /* Locked.swift */; };
+		DA3CED1C21BA8A24000081DB /* VirtualOliClientPumpManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3CED1B21BA8A24000081DB /* VirtualOliClientPumpManager.swift */; };
+		DA3CED1F21BD0460000081DB /* GlucoseFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3CED1E21BD0460000081DB /* GlucoseFetcher.swift */; };
 		DA53281B21B7B4C9002916CE /* VirtualOliClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA3C0B1321B67FCC0077589B /* VirtualOliClient.framework */; };
 		DA53281E21B7D34B002916CE /* LocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA53281D21B7D34B002916CE /* LocalizedString.swift */; };
 		DA53282021B7D482002916CE /* IdentifiableClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA53281F21B7D482002916CE /* IdentifiableClass.swift */; };
@@ -49,7 +51,7 @@
 		DA3C0B1C21B67FCC0077589B /* VirtualOliClientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VirtualOliClientTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA3C0B2121B67FCC0077589B /* VirtualOliClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualOliClientTests.swift; sourceTree = "<group>"; };
 		DA3C0B2321B67FCC0077589B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DA3C0B2F21B6841A0077589B /* VirtualOliClientManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualOliClientManager.swift; sourceTree = "<group>"; };
+		DA3C0B2F21B6841A0077589B /* VirtualOliClientCGMManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualOliClientCGMManager.swift; sourceTree = "<group>"; };
 		DA3C0B3221B686300077589B /* LoopKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LoopKit.framework; path = Carthage/Build/iOS/LoopKit.framework; sourceTree = "<group>"; };
 		DA3C0B3A21B6886B0077589B /* VirtualOliClientUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = VirtualOliClientUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA3C0B3C21B6886B0077589B /* VirtualOliClientUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VirtualOliClientUI.h; sourceTree = "<group>"; };
@@ -61,6 +63,8 @@
 		DA3CED1521BA6A97000081DB /* VirtualOliGlucose+GlucoseKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VirtualOliGlucose+GlucoseKit.swift"; sourceTree = "<group>"; };
 		DA3CED1721BA6DC2000081DB /* HKUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HKUnit.swift; sourceTree = "<group>"; };
 		DA3CED1921BA7004000081DB /* Locked.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Locked.swift; sourceTree = "<group>"; };
+		DA3CED1B21BA8A24000081DB /* VirtualOliClientPumpManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualOliClientPumpManager.swift; sourceTree = "<group>"; };
+		DA3CED1E21BD0460000081DB /* GlucoseFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseFetcher.swift; sourceTree = "<group>"; };
 		DA53281D21B7D34B002916CE /* LocalizedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedString.swift; sourceTree = "<group>"; };
 		DA53281F21B7D482002916CE /* IdentifiableClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableClass.swift; sourceTree = "<group>"; };
 		DA53282221B7D594002916CE /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
@@ -130,10 +134,12 @@
 				DA3C0B1621B67FCC0077589B /* VirtualOliClient.h */,
 				DA3CED1321B8A288000081DB /* VirtualOliClient.swift */,
 				DA3C0B1721B67FCC0077589B /* Info.plist */,
-				DA3C0B2F21B6841A0077589B /* VirtualOliClientManager.swift */,
+				DA3C0B2F21B6841A0077589B /* VirtualOliClientCGMManager.swift */,
 				DA53282621B7DB73002916CE /* ShareService.swift */,
 				DA3CED1521BA6A97000081DB /* VirtualOliGlucose+GlucoseKit.swift */,
 				DA3CED1721BA6DC2000081DB /* HKUnit.swift */,
+				DA3CED1B21BA8A24000081DB /* VirtualOliClientPumpManager.swift */,
+				DA3CED1E21BD0460000081DB /* GlucoseFetcher.swift */,
 			);
 			path = VirtualOliClient;
 			sourceTree = "<group>";
@@ -330,7 +336,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA53281E21B7D34B002916CE /* LocalizedString.swift in Sources */,
-				DA3C0B3021B6841A0077589B /* VirtualOliClientManager.swift in Sources */,
+				DA3CED1C21BA8A24000081DB /* VirtualOliClientPumpManager.swift in Sources */,
+				DA3C0B3021B6841A0077589B /* VirtualOliClientCGMManager.swift in Sources */,
+				DA3CED1F21BD0460000081DB /* GlucoseFetcher.swift in Sources */,
 				DA3CED1A21BA7004000081DB /* Locked.swift in Sources */,
 				DA3CED1821BA6DC2000081DB /* HKUnit.swift in Sources */,
 				DA53282721B7DB73002916CE /* ShareService.swift in Sources */,
