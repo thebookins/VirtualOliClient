@@ -12,10 +12,10 @@ import LoopKitUI
 import VirtualOliClient
 
 
-class VirtualOliClientSetupViewController: UINavigationController, CGMManagerSetupViewController {
+class VirtualCGMSetupViewController: UINavigationController, CGMManagerSetupViewController {
     var setupDelegate: CGMManagerSetupViewControllerDelegate?
     
-    let cgmManager = VirtualOliClientCGMManager()
+    let cgmManager = VirtualCGMManager()
     
     init() {
         let authVC = AuthenticationViewController(authentication: cgmManager.shareService)

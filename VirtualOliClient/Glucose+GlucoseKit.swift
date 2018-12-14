@@ -11,7 +11,7 @@ import HealthKit
 import LoopKit
 
 
-extension VirtualOliGlucose: GlucoseValue {
+extension Glucose: GlucoseValue {
     public var startDate: Date {
         return readDate
     }
@@ -22,7 +22,7 @@ extension VirtualOliGlucose: GlucoseValue {
 }
 
 
-extension VirtualOliGlucose: SensorDisplayable {
+extension Glucose: SensorDisplayable {
     public var isStateValid: Bool {
         return glucose >= 2.2
     }

@@ -13,7 +13,7 @@ import Foundation
 import UIKit
 
 
-public class VirtualOliClientCGMManager : CGMManager {
+public class VirtualCGMManager : CGMManager {
     public static let managerIdentifier: String = "SimulatedCGM"
 
     // TODO: encapsulate all this in a class VirtualOliClient
@@ -93,7 +93,7 @@ public class VirtualOliClientCGMManager : CGMManager {
         }
     }
     
-    public static let localizedTitle = NSLocalizedString("Simulated CGM", comment: "CGM display title")
+    public static let localizedTitle = NSLocalizedString("Virtual", comment: "CGM display title")
     
     public var appURL: URL? {
         return nil
@@ -118,7 +118,7 @@ public class VirtualOliClientCGMManager : CGMManager {
         return nil
     }
     
-    private(set) public var latestReading: VirtualOliGlucose? {
+    private(set) public var latestReading: Glucose? {
         get {
             return lockedLatestReading.value
         }
@@ -126,7 +126,7 @@ public class VirtualOliClientCGMManager : CGMManager {
             lockedLatestReading.value = newValue
         }
     }
-    private let lockedLatestReading: Locked<VirtualOliGlucose?> = Locked(nil)
+    private let lockedLatestReading: Locked<Glucose?> = Locked(nil)
     
     public var shouldSyncToRemoteService: Bool {
         return true

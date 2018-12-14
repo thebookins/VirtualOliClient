@@ -10,14 +10,14 @@ import LoopKitUI
 import HealthKit
 import VirtualOliClient
 
-extension VirtualOliClientCGMManager: CGMManagerUI {
+extension VirtualCGMManager: CGMManagerUI {
     public static func setupViewController() -> (UIViewController & CGMManagerSetupViewController)? {
         print("about to return setup view controller")
-        return VirtualOliClientSetupViewController()
+        return VirtualCGMSetupViewController()
     }
     
     public func settingsViewController(for glucoseUnit: HKUnit) -> UIViewController {
-        return VirtualOliClientSettingsViewController(cgmManager: self, allowsDeletion: true)
+        return VirtualCGMSettingsViewController(cgmManager: self, allowsDeletion: true)
     }
     
     public var smallImage: UIImage? {

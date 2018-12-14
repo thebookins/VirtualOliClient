@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct VirtualOliGlucose {
+public struct Glucose {
     public let glucose: Double
     public let readDate: Date
 }

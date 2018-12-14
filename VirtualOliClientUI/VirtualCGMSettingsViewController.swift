@@ -11,13 +11,13 @@ import LoopKit
 import LoopKitUI
 import VirtualOliClient
 
-class VirtualOliClientSettingsViewController: UITableViewController {
+class VirtualCGMSettingsViewController: UITableViewController {
     
-    public let cgmManager: VirtualOliClientCGMManager
+    public let cgmManager: VirtualCGMManager
     
     public let allowsDeletion: Bool
     
-    public init(cgmManager: VirtualOliClientCGMManager, allowsDeletion: Bool) {
+    public init(cgmManager: VirtualCGMManager, allowsDeletion: Bool) {
         self.cgmManager = cgmManager
         self.allowsDeletion = allowsDeletion
         
