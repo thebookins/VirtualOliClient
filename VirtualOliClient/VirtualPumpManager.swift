@@ -24,9 +24,7 @@ public class VirtualPumpManager : PumpManager {
         return true
     }
 
-    public var pumpReservoirCapacity: Double {
-        return 50
-    }
+    public var pumpReservoirCapacity: Double = 300
 
     public var pumpTimeZone: TimeZone
     
@@ -117,6 +115,11 @@ public class VirtualPumpManager : PumpManager {
         }
     }
 
+    private func isReservoirDataOlderThan(timeIntervalSinceNow: TimeInterval) -> Bool {
+        var lastReservoirDate = pumpManagerDelegate?.startDateToFilterNewReservoirEvents(for: self) ?? .distantPast
+        return lastReservoirDate.timeIntervalSinceNow <= timeIntervalSinceNow
+    }
+
     public func assertCurrentPumpData() {
         print("asserting pump data")
 
@@ -148,22 +151,50 @@ public class VirtualPumpManager : PumpManager {
     }
 
     public func enactBolus(units: Double, at startDate: Date, willRequest: @escaping (Double, Date) -> Void, completion: @escaping (Error?) -> Void) {
-        return
+        guard units > 0 else {
+            completion(nil)
+            return
+        }
+
+        // If we don't have recent pump data, or the pump was recently rewound, read new pump data before bolusing.
+        let shouldReadReservoir = isReservoirDataOlderThan(timeIntervalSinceNow: .minutes(-6))
+
+        if shouldReadReservoir {
+            GlucoseFetcher.fetchReservoir { [weak self] reservoir in
+                guard let self = self else {
+                    return
+                }
+                self.pumpManagerDelegate?.pumpManager(self, didReadReservoirValue: reservoir, at: Date()) { _ in
+                    // Ignore result
+                }
+            }
+        }
+
+        willRequest(1.0, Date())
+
+        // TODO: handle error cases in callback
+        GlucoseFetcher.postBolus(units: 1) { () -> Void in
+            completion(nil)
+        }
     }
 
     public func enactTempBasal(unitsPerHour: Double, for duration: TimeInterval, completion: @escaping (PumpManagerResult<DoseEntry>) -> Void) {
-        // for now, just assume that it was successful
-        let now = Date()
-        let endDate = now.addingTimeInterval(30 * 60)
-        let startDate = endDate.addingTimeInterval(-duration)
-        completion(.success(DoseEntry(
-            type: .tempBasal,
-            startDate: startDate,
-            endDate: endDate,
-            value: unitsPerHour,
-            unit: .unitsPerHour
-        )))
-        return
+
+        // TODO: handle error cases in callback
+        GlucoseFetcher.postTempBasal(rate: unitsPerHour, duration: duration) { () -> Void in
+            // for now, just assume that it was successful
+            let now = Date()
+            let endDate = now.addingTimeInterval(30 * 60) // TODO: this should be derived from a http response
+            let startDate = endDate.addingTimeInterval(-duration) // TODO: as should this
+            completion(.success(DoseEntry(
+                type: .tempBasal,
+                startDate: startDate,
+                endDate: endDate,
+                value: unitsPerHour,
+                unit: .unitsPerHour
+            )))
+            return
+        }
     }
 
     public func updateBLEHeartbeatPreference() {
