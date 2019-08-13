@@ -8,7 +8,6 @@
 
 import HealthKit
 import LoopKit
-import SocketIO
 import Foundation
 import UIKit
 
