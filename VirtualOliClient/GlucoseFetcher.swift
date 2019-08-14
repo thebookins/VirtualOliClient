@@ -36,7 +36,7 @@ struct GlucoseFetcher {
                 return
             }
             
-            guard let glucoseResponse = decoded as? [String: Any], let glucoseValue = glucoseResponse["glucose"] as? Double, let readDate = dateFormatter.date(from: glucoseResponse["readDate"] as! String) else {
+            guard let glucoseResponse = decoded as? [String: Any], let latest = glucoseResponse["latestGlucose"] as? [String: Any], let glucoseValue = latest["glucose"] as? Double, let readDate = dateFormatter.date(from: latest["readDate"] as! String) else {
 //                TODO: call completion handler here
                 return
             }
