@@ -167,27 +167,41 @@ public class VirtualCGMManager : CGMManager {
     
     public func fetchNewDataIfNeeded(_ completion: @escaping (LoopKit.CGMResult) -> Void) {
         print("fetching new data")
-        GlucoseFetcher.fetchGlucose { [weak self] glucose in
-            guard let self = self else {
-                completion(.noData)
-                return
-            }
+        
+        let glucose = Glucose(glucose: 100, readDate: Date())
+        let quantity = glucose.quantity
+        
+        completion(.newData([
+            NewGlucoseSample(
+                date: glucose.readDate,
+                quantity: quantity,
+                isDisplayOnly: false,
+                syncIdentifier: "\(Int(glucose.startDate.timeIntervalSince1970))",
+                device: self.device
+            )
+        ]))
 
-            self.latestReading = glucose
-
-            let quantity = glucose.quantity
-
-            print("%{public}@: New glucose: %@", #function, String(describing: quantity))
-
-            completion(.newData([
-                NewGlucoseSample(
-                    date: glucose.readDate,
-                    quantity: quantity,
-                    isDisplayOnly: false,
-                    syncIdentifier: "\(Int(glucose.startDate.timeIntervalSince1970))",
-                    device: self.device
-                )
-            ]))
+//        GlucoseFetcher.fetchGlucose { [weak self] glucose in
+//            guard let self = self else {
+//                completion(.noData)
+//                return
+//            }
+//
+//            self.latestReading = glucose
+//
+//            let quantity = glucose.quantity
+//
+//            print("%{public}@: New glucose: %@", #function, String(describing: quantity))
+//
+//            completion(.newData([
+//                NewGlucoseSample(
+//                    date: glucose.readDate,
+//                    quantity: quantity,
+//                    isDisplayOnly: false,
+//                    syncIdentifier: "\(Int(glucose.startDate.timeIntervalSince1970))",
+//                    device: self.device
+//                )
+//            ]))
         }
     }
 }
