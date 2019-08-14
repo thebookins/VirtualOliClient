@@ -10,7 +10,8 @@ import UIKit
 import LoopKit
 
 struct GlucoseFetcher {
-    static let glucoseURL = "https://virtual-oli.herokuapp.com/api/cgm"
+//    static let glucoseURL = "https://virtual-oli.herokuapp.com/api/cgm"
+    static let glucoseURL = "http://localhost:5000/api/cgms/5d42cc46e7179a064fabed43"
     static let statusURL = "https://virtual-oli.herokuapp.com/api/pump/status"
     static let pumpURL = "https://virtual-oli.herokuapp.com/api/pump"
 
