@@ -202,6 +202,6 @@ public class VirtualCGMManager : CGMManager {
 //                    device: self.device
 //                )
 //            ]))
-        }
+//        }
     }
 }
