@@ -168,7 +168,7 @@ public class VirtualCGMManager : CGMManager {
     public func fetchNewDataIfNeeded(_ completion: @escaping (LoopKit.CGMResult) -> Void) {
         print("fetching new data")
         
-        let glucose = Glucose(glucose: 100, readDate: Date())
+        let glucose = Glucose(glucose: 6.0, readDate: Date())
         let quantity = glucose.quantity
         
         completion(.newData([
