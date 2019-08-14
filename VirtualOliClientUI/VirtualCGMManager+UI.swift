@@ -11,13 +11,17 @@ import HealthKit
 import VirtualOliClient
 
 extension VirtualCGMManager: CGMManagerUI {
-    public static func setupViewController() -> (UIViewController & CGMManagerSetupViewController)? {
-        print("about to return setup view controller")
-        return VirtualCGMSetupViewController()
+    public static func setupViewController() -> (UIViewController & CGMManagerSetupViewController & CompletionNotifying)? {
+//        let setup = VirtualCGMSetupViewController()
+//        let nav = SetupNavigationViewController(rootViewController: setup)
+//        return nav
+        return nil
     }
     
-    public func settingsViewController(for glucoseUnit: HKUnit) -> UIViewController {
-        return VirtualCGMSettingsViewController(cgmManager: self, allowsDeletion: true)
+    public func settingsViewController(for glucoseUnit: HKUnit) -> UIViewController & CompletionNotifying {
+        let settings = VirtualCGMSettingsViewController(cgmManager: self, allowsDeletion: true)
+        let nav = SettingsNavigationViewController(rootViewController: settings)
+        return nav
     }
     
     public var smallImage: UIImage? {

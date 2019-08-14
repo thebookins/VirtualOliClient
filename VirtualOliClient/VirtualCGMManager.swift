@@ -13,6 +13,8 @@ import UIKit
 
 
 public class VirtualCGMManager : CGMManager {
+    public var delegateQueue: DispatchQueue!
+    
     public static let managerIdentifier: String = "SimulatedCGM"
 
     // TODO: encapsulate all this in a class VirtualOliClient

@@ -38,7 +38,7 @@ class VirtualCGMSetupViewController: UINavigationController, CGMManagerSetupView
     }
     
     @objc private func cancel() {
-        setupDelegate?.cgmManagerSetupViewControllerDidCancel(self)
+//        setupDelegate?.cgmManagerSetupViewControllerDidCancel(self)
     }
     
     @objc private func save() {
