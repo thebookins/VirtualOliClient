@@ -10,12 +10,13 @@ import HealthKit
 import LoopKit
 import Foundation
 import UIKit
+import LoopTestingKit
 
 
-public class VirtualCGMManager : CGMManager {
+public class VirtualCGMManager : CGMManager, TestingDeviceManager {
     public var delegateQueue: DispatchQueue!
     
-    public static let managerIdentifier: String = "SimulatedCGM"
+    public static let managerIdentifier = "VirtualCGMManager"
 
     // TODO: encapsulate all this in a class VirtualOliClient
 //    let manager = SocketManager(socketURL: URL(string: "https://virtual-oli.herokuapp.com")!, config: [.log(false), .compress])
@@ -137,18 +138,23 @@ public class VirtualCGMManager : CGMManager {
         return latestReading
     }
     
-    public var device: HKDevice? {
+    public var testingDevice: HKDevice {
         return HKDevice(
-            name: "SimulatedCGM",
-            manufacturer: "",
-            model: "",
+            name: VirtualCGMManager.managerIdentifier,
+            manufacturer: nil,
+            model: nil,
             hardwareVersion: nil,
             firmwareVersion: nil,
-            softwareVersion: String(0.1),
+            softwareVersion: String(LoopKitVersionNumber),
             localIdentifier: nil,
-            udiDeviceIdentifier: "01234567890123"
+            udiDeviceIdentifier: nil
         )
     }
+    
+    public var device: HKDevice? {
+        return testingDevice
+    }
+
     
     public var debugDescription: String {
         return [
