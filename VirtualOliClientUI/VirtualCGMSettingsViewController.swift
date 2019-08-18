@@ -41,6 +41,22 @@ class VirtualCGMSettingsViewController: UITableViewController {
         
         tableView.register(SettingsTableViewCell.self, forCellReuseIdentifier: SettingsTableViewCell.className)
         tableView.register(TextButtonTableViewCell.self, forCellReuseIdentifier: TextButtonTableViewCell.className)
+        
+        let button = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneTapped(_:)))
+        self.navigationItem.setRightBarButton(button, animated: false)
+    }
+
+    @objc func doneTapped(_ sender: Any) {
+        done()
+    }
+
+    private func done() {
+        if let nav = navigationController as? SettingsNavigationViewController {
+            nav.notifyComplete()
+        }
+//        if let nav = navigationController as? MockPumpManagerSetupViewController {
+//            nav.finishedSettingsDisplay()
+//        }
     }
 
     // MARK: - Table view data source
