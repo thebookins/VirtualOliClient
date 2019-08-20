@@ -1,16 +1,16 @@
+////
+////  VirtualOliClientPumpManager+UI.swift
+////  VirtualOliClientUI
+////
+////  Created by Paul Dickens on 10/12/18.
+////  Copyright © 2018 Paul Dickens. All rights reserved.
+////
 //
-//  VirtualOliClientPumpManager+UI.swift
-//  VirtualOliClientUI
+//import LoopKit
+//import LoopKitUI
+//import HealthKit
+//import VirtualOliClient
 //
-//  Created by Paul Dickens on 10/12/18.
-//  Copyright © 2018 Paul Dickens. All rights reserved.
-//
-
-import LoopKit
-import LoopKitUI
-import HealthKit
-import VirtualOliClient
-
 //extension VirtualPumpManager: PumpManagerUI {
 //    static public func setupViewController() -> (UIViewController & PumpManagerSetupViewController) {
 //        return VirtualPumpSetupViewController()

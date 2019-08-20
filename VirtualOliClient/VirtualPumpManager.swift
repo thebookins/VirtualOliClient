@@ -8,67 +8,133 @@
 
 import HealthKit
 import LoopKit
+import LoopTestingKit
 
+public protocol VirtualPumpManagerStateObserver {
+//    func virtualPumpManager(_ manager: VirtualPumpManager, didUpdate state: VirtualPumpManagerState)
+    func virtualPumpManager(_ manager: VirtualPumpManager, didUpdate status: PumpManagerStatus, oldStatus: PumpManagerStatus)
+}
 
-//public class VirtualPumpManager : PumpManager {
-//    public var supportedBasalRates: [Double]
-//
-//    public var supportedBolusVolumes: [Double]
-//
-//    public var maximumBasalScheduleEntryCount: Int
-//
-//    public var minimumBasalScheduleEntryDuration: TimeInterval
-//
-//    public var status: PumpManagerStatus
-//
-//    public func addStatusObserver(_ observer: PumpManagerStatusObserver, queue: DispatchQueue) {
-//        // TODO: implement
-//    }
-//
-//    public func removeStatusObserver(_ observer: PumpManagerStatusObserver) {
-//        // TODO: implement
-//    }
-//
-//    public func setMustProvideBLEHeartbeat(_ mustProvideBLEHeartbeat: Bool) {
-//        // TODO: implement
-//    }
-//
-//    public func createBolusProgressReporter(reportingOn dispatchQueue: DispatchQueue) -> DoseProgressReporter? {
-//        <#code#>
-//    }
-//
-//    public func enactBolus(units: Double, at startDate: Date, willRequest: @escaping (DoseEntry) -> Void, completion: @escaping (PumpManagerResult<DoseEntry>) -> Void) {
-//        <#code#>
-//    }
-//
-//    public func cancelBolus(completion: @escaping (PumpManagerResult<DoseEntry?>) -> Void) {
-//        <#code#>
-//    }
-//
-//    public func suspendDelivery(completion: @escaping (Error?) -> Void) {
-//        <#code#>
-//    }
-//
-//    public func resumeDelivery(completion: @escaping (Error?) -> Void) {
-//
-//    }
-//
-//    public var delegateQueue: DispatchQueue!
-//
-//
-//    public static let managerIdentifier: String = "Virtual Pump"
-//
-//    public var pumpManagerDelegate: PumpManagerDelegate?
-//
+private enum VirtualPumpManagerError: LocalizedError {
+    case pumpSuspended
+    case communicationFailure
+    case bolusInProgress
+    
+    var failureReason: String? {
+        switch self {
+        case .pumpSuspended:
+            return "Pump is suspended"
+        case .communicationFailure:
+            return "Unable to communicate with pump"
+        case .bolusInProgress:
+            return "Bolus in progress"
+        }
+    }
+}
+
+public class VirtualPumpManager : PumpManager, TestingDeviceManager {
+    public var pumpRecordsBasalProfileStartEvents: Bool {
+        return true
+    }
+    
+    public var lastReconciliation: Date? {
+        return nil
+    }
+    
+    public static let managerIdentifier = "VirtualPumpManager"
+    public static let localizedTitle = "Virtual"
+    private static let device = HKDevice(
+        name: VirtualPumpManager.managerIdentifier,
+        manufacturer: nil,
+        model: nil,
+        hardwareVersion: nil,
+        firmwareVersion: nil,
+        softwareVersion: String(LoopKitVersionNumber),
+        localIdentifier: nil,
+        udiDeviceIdentifier: nil
+    )
+    
+    private static let deliveryUnitsPerMinute = 1.5
+    private static let pulsesPerUnit: Double = 20
+    private static let pumpReservoirCapacity: Double = 200
+
+    public var supportedBolusVolumes: [Double] {
+        return supportedBasalRates
+    }
+
+    public var supportedBasalRates: [Double] {
+        return (0...700).map { Double($0) / Double(type(of: self).pulsesPerUnit) }
+    }
+
+    public func roundToSupportedBasalRate(unitsPerHour: Double) -> Double {
+        // TODO: really round
+        return unitsPerHour
+    }
+    
+    public func roundToSupportedBolusVolume(units: Double) -> Double {
+        // TODO: really round
+        return units
+    }
+
+    public var maximumBasalScheduleEntryCount: Int {
+        return 48
+    }
+
+    public var minimumBasalScheduleEntryDuration: TimeInterval {
+        return .minutes(30)
+    }
+
+    public var testingDevice: HKDevice {
+        return type(of: self).device
+    }
+
+    public var status: PumpManagerStatus
+
+    public func addStatusObserver(_ observer: PumpManagerStatusObserver, queue: DispatchQueue) {
+        statusObservers.insert(observer, queue: queue)
+    }
+
+    public func removeStatusObserver(_ observer: PumpManagerStatusObserver) {
+        statusObservers.removeElement(observer)
+    }
+    
+    private let delegate = WeakSynchronizedDelegate<PumpManagerDelegate>()
+    
+    private var statusObservers = WeakSynchronizedSet<PumpManagerStatusObserver>()
+    private var stateObservers = WeakSynchronizedSet<VirtualPumpManagerStateObserver>()
+    
+    public func setMustProvideBLEHeartbeat(_ mustProvideBLEHeartbeat: Bool) {
+        // TODO: implement
+    }
+
+    public func createBolusProgressReporter(reportingOn dispatchQueue: DispatchQueue) -> DoseProgressReporter? {
+        return nil
+    }
+
+    public func cancelBolus(completion: @escaping (PumpManagerResult<DoseEntry?>) -> Void) {
+        // TODO: implement
+    }
+
+    public func suspendDelivery(completion: @escaping (Error?) -> Void) {
+        // TODO: implement
+    }
+
+    public func resumeDelivery(completion: @escaping (Error?) -> Void) {
+        // TODO: implement
+    }
+
+    public var delegateQueue: DispatchQueue!
+
+    public var pumpManagerDelegate: PumpManagerDelegate?
+
 //    public var pumpBatteryChargeRemaining: Double? {
 //        return 0.5
 //    }
 //
-//    public var pumpRecordsBasalProfileStartEvents: Bool {
-//        return true
-//    }
 //
-//    public var pumpReservoirCapacity: Double = 300
+    public var pumpReservoirCapacity: Double {
+        return VirtualPumpManager.pumpReservoirCapacity
+    }
 //
 //    public var pumpTimeZone: TimeZone
 //
@@ -81,7 +147,6 @@ import LoopKit
 //    }
 //
 //
-//    public static let localizedTitle = LocalizedString("Virtual", comment: "Generic title of the simulated pump manager")
 //
 ////    public var localizedTitle: String {
 ////        return String(format: LocalizedString("Minimed %@", comment: "Pump title (1: model number)"), state.pumpModel.rawValue)
@@ -164,9 +229,9 @@ import LoopKit
 //        return lastReservoirDate.timeIntervalSinceNow <= timeIntervalSinceNow
 //    }
 //
-//    public func assertCurrentPumpData() {
-//        print("asserting pump data")
-//
+    public func assertCurrentPumpData() {
+        print("asserting pump data")
+
 //        guard isPumpDataStale else {
 //            return
 //        }
@@ -192,17 +257,19 @@ import LoopKit
 //
 //            self.pumpManagerDelegate?.pumpManager(self, didUpdateStatus: pumpManagerStatus)
 //        }
-//    }
-//
-//    public func enactBolus(units: Double, at startDate: Date, willRequest: @escaping (Double, Date) -> Void, completion: @escaping (Error?) -> Void) {
+    }
+
+    
+    public func enactBolus(units: Double, at startDate: Date, willRequest: @escaping (DoseEntry) -> Void, completion: @escaping (PumpManagerResult<DoseEntry>) -> Void) {
+        completion(.failure(SetBolusError.certain(PumpManagerError.communication(VirtualPumpManagerError.communicationFailure))))
 //        guard units > 0 else {
 //            completion(nil)
 //            return
 //        }
-//
-//        // If we don't have recent pump data, or the pump was recently rewound, read new pump data before bolusing.
+
+        // If we don't have recent pump data, or the pump was recently rewound, read new pump data before bolusing.
 //        let shouldReadReservoir = isReservoirDataOlderThan(timeIntervalSinceNow: .minutes(-6))
-//
+
 //        if shouldReadReservoir {
 //            GlucoseFetcher.fetchReservoir { [weak self] reservoir in
 //                guard let self = self else {
@@ -220,9 +287,9 @@ import LoopKit
 //        GlucoseFetcher.postBolus(units: 1) { () -> Void in
 //            completion(nil)
 //        }
-//    }
-//
-//    public func enactTempBasal(unitsPerHour: Double, for duration: TimeInterval, completion: @escaping (PumpManagerResult<DoseEntry>) -> Void) {
+    }
+
+    public func enactTempBasal(unitsPerHour: Double, for duration: TimeInterval, completion: @escaping (PumpManagerResult<DoseEntry>) -> Void) {
 //
 //        // TODO: handle error cases in callback
 //        GlucoseFetcher.postTempBasal(rate: unitsPerHour, duration: duration) { () -> Void in
@@ -239,7 +306,7 @@ import LoopKit
 //            )))
 //            return
 //        }
-//    }
+    }
 //
 //    public func updateBLEHeartbeatPreference() {
 //    }
@@ -250,15 +317,27 @@ import LoopKit
 //        shareService = ShareService(keychainManager: keychain)
 //    }
 //
-//    required convenience public init?(rawState: PumpManager.RawStateValue) {
-//        self.init()
-//    }
-//
-//    public var rawState: PumpManager.RawStateValue {
-//        return [:]
-//    }
-//
-//    public var debugDescription: String {
-//        return ""
-//    }
-//}
+    public init() {
+        self.status = PumpManagerStatus(
+            timeZone: .current,
+            device: VirtualPumpManager.device,
+            pumpBatteryChargeRemaining: 1,
+            basalDeliveryState: .active(Date()),
+            bolusState: .none
+        )
+    }
+    
+    required convenience public init?(rawState: PumpManager.RawStateValue) {
+        self.init()
+    }
+
+    public var rawState: PumpManager.RawStateValue {
+        return [:]
+    }
+}
+
+extension VirtualPumpManager {
+    public var debugDescription: String {
+        return ""
+    }
+}
