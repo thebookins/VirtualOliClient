@@ -11,7 +11,9 @@ import LoopKit
 import LoopKitUI
 import VirtualOliClient
 
-class VirtualPumpSettingsViewController: UITableViewController {
+class VirtualPumpSettingsViewController: UITableViewController, CompletionNotifying {
+    var completionDelegate: CompletionDelegate?
+    
 //    
 //    public let cgmManager: VirtualOliClientCGMManager
 //    

@@ -36,6 +36,7 @@
 		DA53282521B7D970002916CE /* VirtualCGMSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA53282421B7D970002916CE /* VirtualCGMSetupViewController.swift */; };
 		DA53282721B7DB73002916CE /* ShareService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA53282621B7DB73002916CE /* ShareService.swift */; };
 		DA53282921B7DD8B002916CE /* ShareService+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA53282821B7DD8B002916CE /* ShareService+UI.swift */; };
+		DAE423FB230D70C1004C3A46 /* VirtualPumpManager.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAE423FA230D70C1004C3A46 /* VirtualPumpManager.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +82,7 @@
 		DA53282421B7D970002916CE /* VirtualCGMSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualCGMSetupViewController.swift; sourceTree = "<group>"; };
 		DA53282621B7DB73002916CE /* ShareService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareService.swift; sourceTree = "<group>"; };
 		DA53282821B7DD8B002916CE /* ShareService+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShareService+UI.swift"; sourceTree = "<group>"; };
+		DAE423FA230D70C1004C3A46 /* VirtualPumpManager.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = VirtualPumpManager.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,6 +186,7 @@
 				DA53282421B7D970002916CE /* VirtualCGMSetupViewController.swift */,
 				DA3CED2021BE40A8000081DB /* VirtualPumpManager+UI.swift */,
 				DA3CED2221BE416F000081DB /* VirtualPumpSetupViewController.swift */,
+				DAE423FA230D70C1004C3A46 /* VirtualPumpManager.storyboard */,
 			);
 			path = VirtualOliClientUI;
 			sourceTree = "<group>";
@@ -335,6 +338,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAE423FB230D70C1004C3A46 /* VirtualPumpManager.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

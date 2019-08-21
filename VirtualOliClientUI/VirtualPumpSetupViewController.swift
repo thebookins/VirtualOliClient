@@ -1,53 +1,76 @@
-////
-////  VirtualOliClientPumpSetupViewController.swift
-////  VirtualOliClientUI
-////
-////  Created by Paul Dickens on 10/12/18.
-////  Copyright © 2018 Paul Dickens. All rights reserved.
-////
 //
-//import LoopKit
-//import LoopKitUI
-//import VirtualOliClient
+//  MockPumpManagerSetupViewController.swift
+//  LoopKitUI
 //
-//class VirtualPumpSetupViewController: UINavigationController, PumpManagerSetupViewController {
-//    var setupDelegate: PumpManagerSetupViewControllerDelegate?
-//    
-//    let pumpManager = VirtualPumpManager()
-//    
-//    var maxBasalRateUnitsPerHour: Double?
-//    
-//    var maxBolusUnits: Double?
-//    
-//    var basalSchedule: BasalRateSchedule?
-//    
-//    init() {
-//        let authVC = AuthenticationViewController(authentication: pumpManager.shareService)
-//        
-//        super.init(rootViewController: authVC)
-//        
-//        authVC.authenticationObserver = { [weak self] (service) in
-//            self?.pumpManager.shareService = service
-//        }
-//        authVC.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
-//        authVC.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
+//  Created by Michael Pangburn on 11/20/18.
+//  Copyright © 2018 LoopKit Authors. All rights reserved.
 //
-//        title = "Virtual Pump" //cgmManager.localizedTitle
-//    }
-//        
-//    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-//        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-//    }
-//    
-//    required init?(coder aDecoder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-//
-//    @objc private func cancel() {
-//        setupDelegate?.pumpManagerSetupViewControllerDidCancel(self)
-//    }
-//
-//    @objc private func save() {
-//        setupDelegate?.pumpManagerSetupViewController(self, didSetUpPumpManager: pumpManager)
-//    }
-//}
+import UIKit
+import LoopKit
+import LoopKitUI
+import VirtualOliClient
+
+
+final class VirtualPumpSetupViewController: UINavigationController, PumpManagerSetupViewController, CompletionNotifying {
+    
+    static func instantiateFromStoryboard() -> VirtualPumpSetupViewController {
+        return UIStoryboard(name: "VirtualPumpManager", bundle: Bundle(for: VirtualPumpSetupViewController.self)).instantiateInitialViewController() as! VirtualPumpSetupViewController
+    }
+    
+    var maxBasalRateUnitsPerHour: Double?
+    
+    var maxBolusUnits: Double?
+    
+    var basalSchedule: BasalRateSchedule?
+    
+    let pumpManager = VirtualPumpManager()
+    
+    weak var setupDelegate: PumpManagerSetupViewControllerDelegate?
+    
+    weak var completionDelegate: CompletionDelegate?
+    
+    override public func viewDidLoad() {
+        super.viewDidLoad()
+        
+        view.backgroundColor = .white
+        navigationBar.shadowImage = UIImage()
+        
+        delegate = self
+    }
+    
+    func completeSetup() {
+        setupDelegate?.pumpManagerSetupViewController(self, didSetUpPumpManager: pumpManager)
+        completionDelegate?.completionNotifyingDidComplete(self)
+    }
+    
+    public func finishedSettingsDisplay() {
+        completionDelegate?.completionNotifyingDidComplete(self)
+    }
+}
+
+extension VirtualPumpSetupViewController: UINavigationControllerDelegate {
+    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+        switch viewController {
+//        case let vc as VirtualPumpSettingsViewController:
+//            vc.pumpManager = pumpManager
+        default:
+            break
+        }
+        
+        // Adjust the appearance for the main setup view controllers only
+        if let setupViewController = viewController as? SetupTableViewController {
+            setupViewController.delegate = self
+            navigationBar.isTranslucent = false
+            navigationBar.shadowImage = UIImage()
+        } else {
+            navigationBar.isTranslucent = true
+            navigationBar.shadowImage = nil
+        }
+    }
+}
+
+extension VirtualPumpSetupViewController: SetupTableViewControllerDelegate {
+    public func setupTableViewControllerCancelButtonPressed(_ viewController: SetupTableViewController) {
+        completionDelegate?.completionNotifyingDidComplete(self)
+    }
+}
