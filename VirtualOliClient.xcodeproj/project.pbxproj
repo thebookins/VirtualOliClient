@@ -37,6 +37,7 @@
 		DA53282721B7DB73002916CE /* ShareService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA53282621B7DB73002916CE /* ShareService.swift */; };
 		DA53282921B7DD8B002916CE /* ShareService+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA53282821B7DD8B002916CE /* ShareService+UI.swift */; };
 		DAE423FB230D70C1004C3A46 /* VirtualPumpManager.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAE423FA230D70C1004C3A46 /* VirtualPumpManager.storyboard */; };
+		DAE423FD230DF908004C3A46 /* VirtualPumpSettingsSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE423FC230DF908004C3A46 /* VirtualPumpSettingsSetupViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +84,7 @@
 		DA53282621B7DB73002916CE /* ShareService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareService.swift; sourceTree = "<group>"; };
 		DA53282821B7DD8B002916CE /* ShareService+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShareService+UI.swift"; sourceTree = "<group>"; };
 		DAE423FA230D70C1004C3A46 /* VirtualPumpManager.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = VirtualPumpManager.storyboard; sourceTree = "<group>"; };
+		DAE423FC230DF908004C3A46 /* VirtualPumpSettingsSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualPumpSettingsSetupViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,6 +189,7 @@
 				DA3CED2021BE40A8000081DB /* VirtualPumpManager+UI.swift */,
 				DA3CED2221BE416F000081DB /* VirtualPumpSetupViewController.swift */,
 				DAE423FA230D70C1004C3A46 /* VirtualPumpManager.storyboard */,
+				DAE423FC230DF908004C3A46 /* VirtualPumpSettingsSetupViewController.swift */,
 			);
 			path = VirtualOliClientUI;
 			sourceTree = "<group>";
@@ -380,6 +383,7 @@
 				DA3C0B4321B6889A0077589B /* VirtualCGMManager+UI.swift in Sources */,
 				DA3C0B4521B689390077589B /* VirtualCGMSettingsViewController.swift in Sources */,
 				DA53282021B7D482002916CE /* IdentifiableClass.swift in Sources */,
+				DAE423FD230DF908004C3A46 /* VirtualPumpSettingsSetupViewController.swift in Sources */,
 				DA53282921B7DD8B002916CE /* ShareService+UI.swift in Sources */,
 				DA53282521B7D970002916CE /* VirtualCGMSetupViewController.swift in Sources */,
 				DA53282321B7D594002916CE /* UIColor.swift in Sources */,
