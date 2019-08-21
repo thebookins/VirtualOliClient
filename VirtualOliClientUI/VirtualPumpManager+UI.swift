@@ -13,7 +13,7 @@ import VirtualOliClient
 //
 extension VirtualPumpManager: PumpManagerUI {
     public static func setupViewController() -> (UIViewController & CompletionNotifying & PumpManagerSetupViewController) {
-        return VirtualPumpSetupViewController()
+        return VirtualPumpSetupViewController.instantiateFromStoryboard()
     }
     
     public func settingsViewController() -> (UIViewController & CompletionNotifying) {
