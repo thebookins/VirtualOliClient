@@ -38,6 +38,7 @@
 		DA53282921B7DD8B002916CE /* ShareService+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA53282821B7DD8B002916CE /* ShareService+UI.swift */; };
 		DAE423FB230D70C1004C3A46 /* VirtualPumpManager.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAE423FA230D70C1004C3A46 /* VirtualPumpManager.storyboard */; };
 		DAE423FD230DF908004C3A46 /* VirtualPumpSettingsSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE423FC230DF908004C3A46 /* VirtualPumpSettingsSetupViewController.swift */; };
+		DAE42403230E92ED004C3A46 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAE42402230E92ED004C3A46 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,7 @@
 		DA53282821B7DD8B002916CE /* ShareService+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShareService+UI.swift"; sourceTree = "<group>"; };
 		DAE423FA230D70C1004C3A46 /* VirtualPumpManager.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = VirtualPumpManager.storyboard; sourceTree = "<group>"; };
 		DAE423FC230DF908004C3A46 /* VirtualPumpSettingsSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualPumpSettingsSetupViewController.swift; sourceTree = "<group>"; };
+		DAE42402230E92ED004C3A46 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +179,7 @@
 		DA3C0B3B21B6886B0077589B /* VirtualOliClientUI */ = {
 			isa = PBXGroup;
 			children = (
+				DAE42402230E92ED004C3A46 /* Assets.xcassets */,
 				DA53281F21B7D482002916CE /* IdentifiableClass.swift */,
 				DA3C0B3C21B6886B0077589B /* VirtualOliClientUI.h */,
 				DA3C0B3D21B6886B0077589B /* Info.plist */,
@@ -341,6 +344,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAE42403230E92ED004C3A46 /* Assets.xcassets in Resources */,
 				DAE423FB230D70C1004C3A46 /* VirtualPumpManager.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
