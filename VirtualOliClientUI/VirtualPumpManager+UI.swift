@@ -6,11 +6,12 @@
 //  Copyright © 2018 Paul Dickens. All rights reserved.
 //
 
+import Foundation
 import LoopKit
 import LoopKitUI
-//import HealthKit
 import VirtualOliClient
-//
+
+
 extension VirtualPumpManager: PumpManagerUI {
     public static func setupViewController() -> (UIViewController & CompletionNotifying & PumpManagerSetupViewController) {
         return VirtualPumpSetupViewController.instantiateFromStoryboard()
@@ -57,7 +58,8 @@ extension VirtualPumpManager {
 // MARK: - BasalScheduleTableViewControllerSyncSource
 extension VirtualPumpManager {
     public func syncScheduleValues(for viewController: BasalScheduleTableViewController, completion: @escaping (SyncBasalScheduleResult<Double>) -> Void) {
-//        TODO: implement
+//        TODO: send basal schedule to the server
+        completion(.success(scheduleItems: viewController.scheduleItems, timeZone: .currentFixed))
     }
     
     public func syncButtonTitle(for viewController: BasalScheduleTableViewController) -> String {
@@ -65,20 +67,10 @@ extension VirtualPumpManager {
     }
     
     public func syncButtonDetailText(for viewController: BasalScheduleTableViewController) -> String? {
-        return "I wonder what this string is"
+        return nil
     }
     
     public func basalScheduleTableViewControllerIsReadOnly(_ viewController: BasalScheduleTableViewController) -> Bool {
         return false
     }
 }
-
-//    static public func setupViewController() -> (UIViewController & PumpManagerSetupViewController) {
-//        return VirtualPumpSetupViewController()
-//    }
-//    
-//    public func settingsViewController() -> UIViewController {
-//        return VirtualPumpSettingsViewController()
-//    }
-//    
-//
