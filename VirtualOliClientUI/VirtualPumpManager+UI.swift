@@ -17,7 +17,9 @@ extension VirtualPumpManager: PumpManagerUI {
     }
     
     public func settingsViewController() -> (UIViewController & CompletionNotifying) {
-        return VirtualPumpSettingsViewController()
+        let settings = VirtualPumpSettingsViewController(pumpManager: self)
+        let nav = SettingsNavigationViewController(rootViewController: settings)
+        return nav
     }
 
     public var smallImage: UIImage? {

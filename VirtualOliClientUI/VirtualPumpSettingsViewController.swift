@@ -11,8 +11,18 @@ import LoopKit
 import LoopKitUI
 import VirtualOliClient
 
-class VirtualPumpSettingsViewController: UITableViewController, CompletionNotifying {
-    var completionDelegate: CompletionDelegate?
+class VirtualPumpSettingsViewController: UITableViewController {
+    
+    let pumpManager: VirtualPumpManager
+    
+    init(pumpManager: VirtualPumpManager) {
+        self.pumpManager = pumpManager
+        super.init(style: .grouped)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
 //    
 //    public let cgmManager: VirtualOliClientCGMManager
@@ -30,9 +40,9 @@ class VirtualPumpSettingsViewController: UITableViewController, CompletionNotify
 //        fatalError("init(coder:) has not been implemented")
 //    }
 //    
-//    override public func viewDidLoad() {
-//        super.viewDidLoad()
-//        
+    override public func viewDidLoad() {
+        super.viewDidLoad()
+//
 //        title = cgmManager.localizedTitle
 //        
 //        tableView.rowHeight = UITableView.automaticDimension
@@ -43,8 +53,24 @@ class VirtualPumpSettingsViewController: UITableViewController, CompletionNotify
 //        
 //        tableView.register(SettingsTableViewCell.self, forCellReuseIdentifier: SettingsTableViewCell.className)
 //        tableView.register(TextButtonTableViewCell.self, forCellReuseIdentifier: TextButtonTableViewCell.className)
-//    }
-//    
+        
+        let button = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneTapped(_:)))
+        self.navigationItem.setRightBarButton(button, animated: false)
+    }
+    
+    @objc func doneTapped(_ sender: Any) {
+        done()
+    }
+    
+    private func done() {
+        if let nav = navigationController as? SettingsNavigationViewController {
+            nav.notifyComplete()
+        }
+        if let nav = navigationController as? VirtualPumpSetupViewController {
+            nav.finishedSettingsDisplay()
+        }
+    }
+//
 //    // MARK: - Table view data source
 //    
 //    private enum Section: Int {
