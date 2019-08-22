@@ -65,7 +65,7 @@ extension VirtualPumpManager {
     }
     
     public func syncButtonDetailText(for viewController: BasalScheduleTableViewController) -> String? {
-        return nil
+        return "I wonder what this string is"
     }
     
     public func basalScheduleTableViewControllerIsReadOnly(_ viewController: BasalScheduleTableViewController) -> Bool {
