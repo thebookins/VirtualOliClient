@@ -59,7 +59,7 @@ extension VirtualPumpManager {
 extension VirtualPumpManager {
     public func syncScheduleValues(for viewController: BasalScheduleTableViewController, completion: @escaping (SyncBasalScheduleResult<Double>) -> Void) {
 //        TODO: send basal schedule to the server
-        completion(.success(scheduleItems: viewController.scheduleItems, timeZone: .currentFixed))
+//        completion(.success(scheduleItems: viewController.scheduleItems, timeZone: .currentFixed))
     }
     
     public func syncButtonTitle(for viewController: BasalScheduleTableViewController) -> String {
